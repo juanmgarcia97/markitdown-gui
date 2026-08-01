@@ -1,0 +1,9 @@
+node_modules/
+.webpack/
+out/
+coverage/
+python-env/
+__pycache__/
+*.pyc
+*.log
+.DS_Store

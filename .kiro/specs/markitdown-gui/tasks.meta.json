@@ -1,0 +1,889 @@
+{
+  "pbtResults": {
+    "3.3 Write property test: Path traversal detection": {
+      "status": "passed",
+      "lastRunTimestamp": 1785598699477
+    },
+    "3.2 Write property test: File extension validation consistency": {
+      "status": "passed",
+      "lastRunTimestamp": 1785598703133
+    },
+    "3.4 Write property test: Duplicate path detection": {
+      "status": "passed",
+      "lastRunTimestamp": 1785598710376
+    },
+    "4.2 Write property test: Output filename suffix resolution": {
+      "status": "passed",
+      "lastRunTimestamp": 1785599049993
+    },
+    "5.3 Write property test: JSON protocol round-trip": {
+      "status": "passed",
+      "lastRunTimestamp": 1785599228218
+    },
+    "6.2 Write property test: Batch progress reporting": {
+      "status": "passed",
+      "lastRunTimestamp": 1785599422193
+    },
+    "6.3 Write property test: Batch fault tolerance": {
+      "status": "passed",
+      "lastRunTimestamp": 1785599444897
+    },
+    "9.4 Write property test: File size formatting": {
+      "status": "passed",
+      "lastRunTimestamp": 1785600311086
+    }
+  },
+  "executionHistory": {
+    "1.1 Inicializar proyecto con Electron Forge y Webpack": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711357
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597726371
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598012302
+      }
+    ],
+    "1.2 Crear estructura de directorios y archivos base": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711474
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598015777
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598132969
+      }
+    ],
+    "1.3 Configurar Vitest y fast-check": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711514
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598016602
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598133067
+      }
+    ],
+    "1.4 Crear constantes compartidas": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711547
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598137623
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598344792
+      }
+    ],
+    "2. Checkpoint - Verificar scaffold base": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711604
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277089
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785601156057
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785601185484
+      }
+    ],
+    "3.1 Crear módulo file-validator.js": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711653
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598352341
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598565121
+      }
+    ],
+    "3.2 Write property test: File extension validation consistency": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711681
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598574440
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598928490
+      }
+    ],
+    "3.3 Write property test: Path traversal detection": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711703
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598575171
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598929188
+      }
+    ],
+    "3.4 Write property test: Duplicate path detection": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711732
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598575925
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598929988
+      }
+    ],
+    "3.5 Write unit tests for FileValidator": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711760
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598576641
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598930919
+      }
+    ],
+    "4.1 Crear módulo output-manager.js": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711789
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598353164
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598565856
+      }
+    ],
+    "4.2 Write property test: Output filename suffix resolution": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711818
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598940163
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785599062360
+      }
+    ],
+    "4.3 Write unit tests for OutputManager": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711849
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598940907
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785599063020
+      }
+    ],
+    "5.1 Crear script worker.py": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711873
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598353849
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598566647
+      }
+    ],
+    "5.2 Crear módulo python-bridge.js": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711900
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598577448
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598931769
+      }
+    ],
+    "5.3 Write property test: JSON protocol round-trip": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711923
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785599067503
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785599243473
+      }
+    ],
+    "5.4 Write unit tests for PythonBridge": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711950
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785599068307
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785599244259
+      }
+    ],
+    "6.1 Crear módulo batch-processor.js": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711972
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785599069045
+      },
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785599245024
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277144
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599284492
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599339622
+      }
+    ],
+    "6.2 Write property test: Batch progress reporting": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597711998
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277169
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599343748
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599489741
+      }
+    ],
+    "6.3 Write property test: Batch fault tolerance": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712023
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277193
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599344463
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599490453
+      }
+    ],
+    "6.4 Write unit tests for BatchProcessor": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712050
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277243
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599345174
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599491473
+      }
+    ],
+    "7. Checkpoint - Core modules completos": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712082
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277269
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785601189024
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785601244202
+      }
+    ],
+    "8.1 Crear módulo settings-manager.js": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712108
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277292
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599345922
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599492363
+      }
+    ],
+    "8.2 Crear preload.js completo con contextBridge API": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712137
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277320
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599501340
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599770844
+      }
+    ],
+    "8.3 Crear ipc-handlers.js con registro de handlers": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712166
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277345
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599502033
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599771646
+      }
+    ],
+    "9.1 Crear HTML base y estilos CSS": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712214
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277370
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599775972
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599969192
+      }
+    ],
+    "9.2 Implementar drag-drop.js": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712236
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277394
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599973159
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600258668
+      }
+    ],
+    "9.3 Implementar file-list.js": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712267
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277422
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599973871
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600259225
+      }
+    ],
+    "9.4 Write property test: File size formatting": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712290
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277444
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600264723
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600407641
+      }
+    ],
+    "9.5 Implementar progress.js": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712318
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277470
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599974626
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600260012
+      }
+    ],
+    "9.6 Implementar markdown-preview.js": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712339
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277494
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599975422
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600260744
+      }
+    ],
+    "9.7 Implementar ui-controller.js": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712365
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277520
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600265458
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600408458
+      }
+    ],
+    "10. Checkpoint - Aplicación funcional": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712387
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277544
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785601247859
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785601293191
+      }
+    ],
+    "11.1 Crear README.md": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712413
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277571
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600416568
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600699859
+      }
+    ],
+    "11.2 Implementar sección de ayuda en la aplicación": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712438
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277593
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600417367
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600700777
+      }
+    ],
+    "12.1 Configurar inclusión de Python embebido en el build": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712465
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277619
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600705071
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600950959
+      }
+    ],
+    "12.2 Configurar makers para instaladores multiplataforma": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712486
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277644
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600705779
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600951793
+      }
+    ],
+    "12.3 Configurar firma y notarización para macOS": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712513
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277664
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600955842
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785601147448
+      }
+    ],
+    "13. Final checkpoint - Release ready": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785597712538
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599277688
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785601296978
+      },
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785601350622
+      }
+    ],
+    "1. Scaffold del proyecto y configuración base": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598344858
+      }
+    ],
+    "3. Implementar File Validator": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785598930943
+      }
+    ],
+    "4. Implementar Output Manager": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785599063047
+      }
+    ],
+    "5. Implementar Python Bridge": [
+      {
+        "executionId": "c2b4279c-e239-4dfc-9ef4-c54638e2b79c",
+        "chatSessionId": "sess_ecfcdf67-4359-4b3c-a9ac-91c9b4a5bda9",
+        "timestamp": 1785599244289
+      }
+    ],
+    "6. Implementar Batch Processor": [
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599491502
+      }
+    ],
+    "8. Implementar Settings Manager y Preload API": [
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785599771679
+      }
+    ],
+    "9. Implementar interfaz de usuario (Renderer)": [
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600408484
+      }
+    ],
+    "11. Documentación y ayuda": [
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785600700807
+      }
+    ],
+    "12. Empaquetado y distribución": [
+      {
+        "executionId": "dfc5134e-fcf4-47ae-9211-def454233c0b",
+        "chatSessionId": "sess_2145b233-9c37-481c-9581-9f32cf421a04",
+        "timestamp": 1785601147496
+      }
+    ]
+  }
+}

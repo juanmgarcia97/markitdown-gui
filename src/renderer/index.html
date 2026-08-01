@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';">
+  <title>MarkItDown GUI</title>
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="app-header">
+      <h1 class="app-title">MarkItDown GUI</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Left Panel: Import & Conversion -->
+      <section class="panel panel-left">
+        <!-- Drop Zone -->
+        <div id="drop-zone" class="drop-zone" role="region" aria-label="Zona para soltar archivos" title="Arrastra archivos aquí o haz clic en 'Agregar archivos' para importar documentos a convertir">
+          <div class="drop-zone__icon" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <path d="M24 4L24 32M24 4L16 12M24 4L32 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 28V40C8 41.1 8.9 42 10 42H38C39.1 42 40 41.1 40 40V28" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p class="drop-zone__text">Arrastra y suelta archivos aquí</p>
+          <p class="drop-zone__hint">PDF, Word, Excel, PowerPoint, imágenes, audio, HTML, CSV, JSON y más</p>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+          <button id="btn-add-files" class="btn btn--primary" type="button" title="Abre un diálogo para seleccionar uno o más archivos compatibles desde tu sistema">
+            Agregar archivos
+          </button>
+          <button id="btn-convert" class="btn btn--success" type="button" disabled title="Inicia la conversión de todos los archivos importados a formato Markdown">
+            Convertir
+          </button>
+        </div>
+
+        <!-- Output Directory Selector -->
+        <div class="output-dir" title="Selecciona la carpeta donde se guardarán los archivos Markdown convertidos. Si no se selecciona, se usa la carpeta original de cada archivo">
+          <label class="output-dir__label" for="btn-select-output">Carpeta de salida:</label>
+          <div class="output-dir__selector">
+            <span id="output-dir-path" class="output-dir__path">Misma carpeta del archivo original</span>
+            <button id="btn-select-output" class="btn btn--outline" type="button" title="Seleccionar carpeta de destino para los archivos convertidos">
+              Cambiar
+            </button>
+          </div>
+        </div>
+
+        <!-- File List -->
+        <section id="file-list" class="file-list" aria-label="Lista de archivos importados">
+          <div class="file-list__header">
+            <h2 class="file-list__title">Archivos importados</h2>
+            <span id="file-count" class="file-list__count">0 archivos</span>
+          </div>
+          <div class="file-list__container" role="list">
+            <!-- File items will be rendered here dynamically -->
+            <div class="file-list__empty">
+              <p>No hay archivos importados</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Progress Area -->
+        <section id="progress-area" class="progress-area" aria-label="Progreso de conversión" hidden>
+          <div class="progress-area__info">
+            <span id="progress-file" class="progress-area__file"></span>
+            <span id="progress-index" class="progress-area__index"></span>
+          </div>
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div id="progress-bar-fill" class="progress-bar__fill"></div>
+          </div>
+          <div class="progress-area__footer">
+            <span id="progress-percentage" class="progress-area__percentage">0%</span>
+            <button id="btn-cancel" class="btn btn--danger" type="button" title="Cancela la conversión después de completar el archivo en proceso actual">
+              Cancelar
+            </button>
+          </div>
+        </section>
+
+        <!-- Error List -->
+        <section id="error-list" class="error-list" aria-label="Errores de conversión" hidden>
+          <h2 class="error-list__title">Errores</h2>
+          <ul class="error-list__container">
+            <!-- Error items rendered dynamically -->
+          </ul>
+        </section>
+      </section>
+
+      <!-- Right Panel: Preview -->
+      <aside id="preview-panel" class="panel panel-right preview-panel" aria-label="Vista previa de Markdown">
+        <div class="preview-panel__header">
+          <h2 class="preview-panel__title">Vista previa</h2>
+          <div class="preview-panel__controls">
+            <div class="toggle-group" role="group" aria-label="Modo de vista previa">
+              <button id="btn-view-rendered" class="toggle-btn toggle-btn--active" type="button" aria-pressed="true">
+                Renderizado
+              </button>
+              <button id="btn-view-source" class="toggle-btn" type="button" aria-pressed="false">
+                Código fuente
+              </button>
+            </div>
+            <button id="btn-copy" class="btn btn--outline btn--sm" type="button" title="Copia el código fuente Markdown al portapapeles">
+              Copiar
+            </button>
+          </div>
+        </div>
+        <div id="preview-content" class="preview-panel__content">
+          <div class="preview-panel__empty">
+            <p>Selecciona un archivo convertido para ver la vista previa</p>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+  </div>
+</body>
+</html>

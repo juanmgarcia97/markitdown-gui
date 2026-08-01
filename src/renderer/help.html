@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';">
+  <title>Ayuda - MarkItDown GUI</title>
+  <style>
+    :root {
+      --color-primary: #2563eb;
+      --color-bg: #f8fafc;
+      --color-surface: #ffffff;
+      --color-border: #e2e8f0;
+      --color-text: #1e293b;
+      --color-text-secondary: #64748b;
+      --color-text-muted: #94a3b8;
+      --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 0.9375rem;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      line-height: 1.6;
+      padding: 2rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .help-container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+
+    .help-subtitle {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--color-text);
+      padding-bottom: 0.375rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    h3 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-primary);
+    }
+
+    p {
+      margin-bottom: 0.75rem;
+    }
+
+    .format-group {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .format-group__title {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--color-text);
+      margin-bottom: 0.25rem;
+    }
+
+    .format-group__items {
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    .format-ext {
+      display: inline-block;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 0.0625rem 0.375rem;
+      font-size: 0.75rem;
+      font-family: 'SF Mono', 'Fira Code', Menlo, Consolas, monospace;
+      color: var(--color-primary);
+      margin: 0.125rem 0.125rem;
+    }
+
+    .steps-list {
+      list-style: none;
+      counter-reset: step-counter;
+      padding: 0;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      position: relative;
+      padding: 0.75rem 1rem 0.75rem 3rem;
+      margin-bottom: 0.5rem;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1.5rem;
+      height: 1.5rem;
+      background-color: var(--color-primary);
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .steps-list li strong {
+      color: var(--color-text);
+    }
+
+    .steps-list li span {
+      color: var(--color-text-secondary);
+      font-size: 0.8125rem;
+    }
+
+    .tip-box {
+      background-color: #eff6ff;
+      border: 1px solid #93c5fd;
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      margin-top: 1.5rem;
+      font-size: 0.8125rem;
+      color: #1e40af;
+    }
+
+    .tip-box strong {
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .version-info {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--color-border);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #cbd5e1;
+      border-radius: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="help-container">
+    <h1>Ayuda de MarkItDown GUI</h1>
+    <p class="help-subtitle">Guía de uso y referencia de formatos soportados</p>
+
+    <h2>Formatos soportados</h2>
+    <p>MarkItDown GUI puede convertir los siguientes tipos de archivos a formato Markdown:</p>
+
+    <div class="format-group">
+      <div class="format-group__title">Documentos</div>
+      <div class="format-group__items">
+        PDF <span class="format-ext">.pdf</span>,
+        Word <span class="format-ext">.docx</span>,
+        PowerPoint <span class="format-ext">.pptx</span>,
+        Excel <span class="format-ext">.xlsx</span> <span class="format-ext">.xls</span>
+      </div>
+    </div>
+
+    <div class="format-group">
+      <div class="format-group__title">Web</div>
+      <div class="format-group__items">
+        HTML <span class="format-ext">.html</span> <span class="format-ext">.htm</span>
+      </div>
+    </div>
+
+    <div class="format-group">
+      <div class="format-group__title">Datos</div>
+      <div class="format-group__items">
+        CSV <span class="format-ext">.csv</span>,
+        JSON <span class="format-ext">.json</span> <span class="format-ext">.jsonl</span>,
+        XML <span class="format-ext">.xml</span>,
+        RSS <span class="format-ext">.rss</span>,
+        Atom <span class="format-ext">.atom</span>
+      </div>
+    </div>
+
+    <div class="format-group">
+      <div class="format-group__title">Texto</div>
+      <div class="format-group__items">
+        Texto plano <span class="format-ext">.txt</span>,
+        Markdown <span class="format-ext">.md</span>
+      </div>
+    </div>
+
+    <div class="format-group">
+      <div class="format-group__title">Imágenes</div>
+      <div class="format-group__items">
+        JPEG <span class="format-ext">.jpg</span> <span class="format-ext">.jpeg</span>,
+        PNG <span class="format-ext">.png</span>
+      </div>
+    </div>
+
+    <div class="format-group">
+      <div class="format-group__title">Audio/Video</div>
+      <div class="format-group__items">
+        WAV <span class="format-ext">.wav</span>,
+        MP3 <span class="format-ext">.mp3</span>,
+        M4A <span class="format-ext">.m4a</span>,
+        MP4 <span class="format-ext">.mp4</span>
+      </div>
+    </div>
+
+    <div class="format-group">
+      <div class="format-group__title">Otros</div>
+      <div class="format-group__items">
+        EPUB <span class="format-ext">.epub</span>,
+        Jupyter Notebook <span class="format-ext">.ipynb</span>,
+        Outlook <span class="format-ext">.msg</span>,
+        ZIP <span class="format-ext">.zip</span>
+      </div>
+    </div>
+
+    <h2>Flujo de conversión</h2>
+    <p>Sigue estos pasos para convertir tus archivos a Markdown:</p>
+
+    <ol class="steps-list">
+      <li>
+        <strong>Importar archivos</strong><br>
+        <span>Arrastra y suelta archivos sobre la zona indicada, o haz clic en "Agregar archivos" para seleccionarlos desde tu sistema.</span>
+      </li>
+      <li>
+        <strong>Seleccionar carpeta de salida (opcional)</strong><br>
+        <span>Elige una carpeta donde guardar los archivos convertidos. Si no seleccionas ninguna, se guardarán en la misma carpeta del archivo original.</span>
+      </li>
+      <li>
+        <strong>Presionar "Convertir"</strong><br>
+        <span>Inicia la conversión de todos los archivos importados. Puedes ver el progreso en la barra y cancelar en cualquier momento.</span>
+      </li>
+      <li>
+        <strong>Revisar resultados en vista previa</strong><br>
+        <span>Haz clic en un archivo convertido para ver el Markdown generado. Puedes alternar entre vista renderizada y código fuente.</span>
+      </li>
+      <li>
+        <strong>Copiar o abrir carpeta de salida</strong><br>
+        <span>Copia el contenido Markdown al portapapeles o abre directamente la carpeta donde se guardaron los archivos convertidos.</span>
+      </li>
+    </ol>
+
+    <div class="tip-box">
+      <strong>Consejo</strong>
+      Puedes importar hasta 100 archivos a la vez. También puedes arrastrar carpetas — se procesarán los archivos compatibles del primer nivel.
+    </div>
+
+    <div class="version-info">
+      MarkItDown GUI v1.0.0 — Basado en la librería markitdown de Microsoft
+    </div>
+  </div>
+</body>
+</html>
