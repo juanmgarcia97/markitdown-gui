@@ -89,4 +89,19 @@ module.exports = {
       },
     },
   ],
+  hooks: {
+    postPackage: async (forgeConfig, options) => {
+      if (process.platform === 'darwin' && !process.env.APPLE_ID) {
+        const { execSync } = require('child_process');
+        const appPath = path.join(options.outputPaths[0], `${forgeConfig.packagerConfig.name}.app`);
+        // Strip extended attributes and resource forks before signing
+        execSync(`xattr -cr "${appPath}"`);
+        execSync(`find "${appPath}" -name '._*' -delete`);
+        execSync(`find "${appPath}" -name '.DS_Store' -delete`);
+        // Ad-hoc sign for local development use
+        execSync(`codesign --force --deep --sign - "${appPath}"`);
+        console.log(`✔ Ad-hoc signed: ${appPath}`);
+      }
+    },
+  },
 };
