@@ -7,6 +7,7 @@ const readline = require('readline');
 const { EventEmitter } = require('events');
 
 const { LIMITS, ERROR_CODES } = require('../shared/constants');
+const { log } = require('./logger');
 
 /**
  * PythonBridge gestiona el ciclo de vida del proceso Python embebido
@@ -50,12 +51,15 @@ class PythonBridge extends EventEmitter {
     const pythonPath = this._resolvePythonPath();
     const workerPath = this._resolveWorkerPath();
 
+    log.info('PythonBridge initializing', { pythonPath, workerPath });
+
     this._spawnProcess(pythonPath, workerPath);
     this._setupLineReader();
     this._setupProcessListeners();
 
     const healthy = await this.healthCheck();
     if (!healthy) {
+      log.error('PythonBridge health check failed during initialization');
       this._killProcess();
       const error = new Error(
         'Python environment is not available or markitdown failed to load. ' +
@@ -65,6 +69,7 @@ class PythonBridge extends EventEmitter {
       throw error;
     }
 
+    log.info('PythonBridge initialized successfully');
     this._initialized = true;
   }
 
@@ -77,13 +82,21 @@ class PythonBridge extends EventEmitter {
   async convert(filePath, requestId) {
     const id = requestId || crypto.randomUUID();
 
+    log.info(`Converting file: ${filePath} (request: ${id})`);
+
     const command = {
       type: 'convert',
       id,
       filePath,
     };
 
-    return this._sendCommand(command, this._conversionTimeout);
+    const response = await this._sendCommand(command, this._conversionTimeout);
+    if (response.success) {
+      log.info(`Conversion succeeded: ${filePath} (request: ${id})`);
+    } else {
+      log.error(`Conversion failed: ${filePath} (request: ${id})`, response.error || 'unknown error');
+    }
+    return response;
   }
 
   /**
@@ -96,8 +109,11 @@ class PythonBridge extends EventEmitter {
 
     try {
       const response = await this._sendCommand(command, this._healthCheckTimeout);
-      return response.status === 'ok';
-    } catch {
+      const ok = response.status === 'ok';
+      log.info(`Health check result: ${ok ? 'OK' : 'FAILED'}`);
+      return ok;
+    } catch (err) {
+      log.error('Health check error:', err.message);
       return false;
     }
   }
@@ -254,10 +270,12 @@ class PythonBridge extends EventEmitter {
    * @param {string} workerPath
    */
   _spawnProcess(pythonPath, workerPath) {
+    log.info(`Spawning Python process: ${pythonPath} ${workerPath}`);
     this._process = spawn(pythonPath, [workerPath], {
       stdio: ['pipe', 'pipe', 'pipe'],
       env: { ...process.env },
     });
+    log.info(`Python process spawned (pid: ${this._process.pid})`);
   }
 
   /**
@@ -283,12 +301,14 @@ class PythonBridge extends EventEmitter {
    */
   _setupProcessListeners() {
     this._process.on('exit', (code, signal) => {
+      log.warn(`Python process exited (code: ${code}, signal: ${signal})`);
       if (!this._shuttingDown) {
         this._handleProcessExit(code, signal);
       }
     });
 
     this._process.on('error', (err) => {
+      log.error(`Python process error: ${err.message}`);
       if (!this._shuttingDown) {
         this._handleProcessError(err);
       }

@@ -26,6 +26,9 @@ contextBridge.exposeInMainWorld('markitdownAPI', {
   readMarkdownFile: (filePath) => ipcRenderer.invoke('read-markdown-file', filePath),
   copyToClipboard: (text) => ipcRenderer.invoke('copy-to-clipboard', text),
 
+  // Logging
+  getLogPath: () => ipcRenderer.invoke('get-log-path'),
+
   // Events (only allow whitelisted channels)
   onProgressUpdate: (cb) => ipcRenderer.on('progress-update', (_, data) => cb(data)),
   onConversionComplete: (cb) => ipcRenderer.on('conversion-complete', (_, data) => cb(data)),

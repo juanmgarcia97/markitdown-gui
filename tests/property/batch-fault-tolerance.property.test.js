@@ -2,6 +2,16 @@ import { describe, it, expect } from 'vitest';
 import fc from 'fast-check';
 import { BatchProcessor } from '../../src/main/batch-processor.js';
 
+import { vi } from 'vitest';
+vi.mock('../../src/main/logger', () => ({
+  log: {
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+    getLogPath: vi.fn().mockReturnValue('/tmp/markitdown-gui.log'),
+  },
+}));
+
 /**
  * Feature: markitdown-gui, Property 7: Batch fault tolerance
  *

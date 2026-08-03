@@ -18,8 +18,16 @@ vi.mock('../../src/main/python-bridge', () => ({
 vi.mock('../../src/main/settings-manager', () => ({
   SettingsManager: vi.fn(),
 }));
+vi.mock('../../src/main/logger', () => ({
+  log: {
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+    getLogPath: vi.fn().mockReturnValue('/tmp/markitdown-gui.log'),
+  },
+}));
 
-import { registerIpcHandlers } from '../../src/main/ipc-handlers';
+import { registerIpcHandlers, resetHandlersRegistered } from '../../src/main/ipc-handlers';
 
 describe('ipc-handlers', () => {
   let mainWindow;
@@ -33,6 +41,7 @@ describe('ipc-handlers', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    resetHandlersRegistered();
 
     // Create mock electron modules
     mockElectron = {
@@ -66,8 +75,9 @@ describe('ipc-handlers', () => {
 
     mockPythonBridge = {
       convert: vi.fn(),
-      initialize: vi.fn(),
+      initialize: vi.fn().mockResolvedValue(undefined),
       shutdown: vi.fn(),
+      _initialized: false,
     };
 
     mockBatchProcessor = {
@@ -104,6 +114,7 @@ describe('ipc-handlers', () => {
         'open-output-folder',
         'read-markdown-file',
         'copy-to-clipboard',
+        'get-log-path',
       ];
 
       for (const channel of expectedChannels) {

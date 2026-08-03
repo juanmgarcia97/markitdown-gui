@@ -93,14 +93,29 @@ module.exports = {
     postPackage: async (forgeConfig, options) => {
       if (process.platform === 'darwin' && !process.env.APPLE_ID) {
         const { execSync } = require('child_process');
-        const appPath = path.join(options.outputPaths[0], `${forgeConfig.packagerConfig.name}.app`);
-        // Strip extended attributes and resource forks before signing
-        execSync(`xattr -cr "${appPath}"`);
-        execSync(`find "${appPath}" -name '._*' -delete`);
-        execSync(`find "${appPath}" -name '.DS_Store' -delete`);
-        // Ad-hoc sign for local development use
-        execSync(`codesign --force --deep --sign - "${appPath}"`);
-        console.log(`✔ Ad-hoc signed: ${appPath}`);
+        const os = require('os');
+        const appName = `${forgeConfig.packagerConfig.name}.app`;
+        const appPath = path.join(options.outputPaths[0], appName);
+        // Copy to a temp directory outside iCloud/File Provider to avoid
+        // persistent extended attributes (com.apple.FinderInfo, provenance)
+        // that cannot be removed on cloud-synced filesystems.
+        const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'forge-sign-'));
+        const tmpApp = path.join(tmpDir, appName);
+        try {
+          execSync(`ditto "${appPath}" "${tmpApp}"`);
+          // Strip any extended attributes in the clean copy
+          execSync(`xattr -cr "${tmpApp}" 2>/dev/null || true`);
+          execSync(`find "${tmpApp}" -name '._*' -delete 2>/dev/null || true`);
+          execSync(`find "${tmpApp}" -name '.DS_Store' -delete 2>/dev/null || true`);
+          // Ad-hoc sign for local development use
+          execSync(`codesign --force --deep --sign - "${tmpApp}"`);
+          // Move the signed app back
+          execSync(`rm -rf "${appPath}"`);
+          execSync(`ditto "${tmpApp}" "${appPath}"`);
+          console.log(`✔ Ad-hoc signed: ${appPath}`);
+        } finally {
+          execSync(`rm -rf "${tmpDir}"`);
+        }
       }
     },
   },

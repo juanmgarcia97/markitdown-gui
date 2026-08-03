@@ -176,7 +176,7 @@ function installMarkitdown() {
 
   console.log('  Installing markitdown...');
   execSync(`"${pythonExe}" -m pip install --upgrade pip`, { stdio: 'inherit' });
-  execSync(`"${pythonExe}" -m pip install markitdown`, { stdio: 'inherit' });
+  execSync(`"${pythonExe}" -m pip install 'markitdown[all]'`, { stdio: 'inherit' });
   console.log('  markitdown installed successfully.');
 }
 

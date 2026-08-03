@@ -9,6 +9,7 @@ const { OutputManager } = require('./output-manager');
 const { BatchProcessor } = require('./batch-processor');
 const { PythonBridge } = require('./python-bridge');
 const { SettingsManager } = require('./settings-manager');
+const { log } = require('./logger');
 
 /**
  * Builds the file filters array for the open-file dialog
@@ -23,8 +24,38 @@ function buildDialogFilters() {
   ];
 }
 
+let _handlersRegistered = false;
+let _mainWindowRef = null;
+
+/**
+ * Updates the mainWindow reference used by IPC handlers.
+ * Call this when a new window is created (e.g., on macOS activate).
+ * @param {import('electron').BrowserWindow} mainWindow
+ */
+function updateMainWindowRef(mainWindow) {
+  _mainWindowRef = mainWindow;
+}
+
+/**
+ * Returns whether IPC handlers have already been registered.
+ * Useful for testing.
+ * @returns {boolean}
+ */
+function isRegistered() {
+  return _handlersRegistered;
+}
+
+/**
+ * Resets the registration state. Only for testing.
+ */
+function resetHandlersRegistered() {
+  _handlersRegistered = false;
+  _mainWindowRef = null;
+}
+
 /**
  * Registers all IPC handlers that connect the preload API with main process modules.
+ * Handlers are registered only once. Subsequent calls update the mainWindow reference.
  * @param {import('electron').BrowserWindow} mainWindow - The main application window
  * @param {Object} [deps] - Optional dependency injection (for testing)
  * @param {FileValidator} [deps.fileValidator]
@@ -35,6 +66,13 @@ function buildDialogFilters() {
  * @param {Object} [deps.electron] - Electron modules (for testing)
  */
 function registerIpcHandlers(mainWindow, deps = {}) {
+  _mainWindowRef = mainWindow;
+
+  if (_handlersRegistered) {
+    log.info('IPC handlers already registered, updating mainWindow reference only');
+    return;
+  }
+  _handlersRegistered = true;
   const electron = deps.electron || require('electron');
   const { ipcMain, dialog, shell, clipboard } = electron;
 
@@ -45,6 +83,28 @@ function registerIpcHandlers(mainWindow, deps = {}) {
   const batchProcessor =
     deps.batchProcessor || new BatchProcessor(pythonBridge, outputManager);
 
+  let pythonBridgeInitialized = false;
+
+  /**
+   * Ensures the PythonBridge is initialized (lazy initialization).
+   * Returns true if ready, false if initialization failed.
+   */
+  async function ensurePythonBridgeReady() {
+    if (pythonBridgeInitialized) return true;
+    try {
+      log.info('Initializing PythonBridge (lazy)...');
+      await pythonBridge.initialize();
+      pythonBridgeInitialized = true;
+      log.info('PythonBridge initialized successfully');
+      return true;
+    } catch (err) {
+      log.error('PythonBridge initialization failed:', err.message);
+      return false;
+    }
+  }
+
+  log.info('Registering IPC handlers');
+
   // ─── File Operations ──────────────────────────────────────────────────
 
   /**
@@ -52,7 +112,8 @@ function registerIpcHandlers(mainWindow, deps = {}) {
    * Returns the selected file paths or an empty array if cancelled.
    */
   ipcMain.handle('open-file-dialog', async () => {
-    const result = await dialog.showOpenDialog(mainWindow, {
+    log.info('IPC: open-file-dialog');
+    const result = await dialog.showOpenDialog(_mainWindowRef, {
       properties: ['openFile', 'multiSelections'],
       filters: buildDialogFilters(),
     });
@@ -70,6 +131,7 @@ function registerIpcHandlers(mainWindow, deps = {}) {
    * @returns {Promise<ValidationResult[]>}
    */
   ipcMain.handle('validate-files', async (_event, paths, existingPaths) => {
+    log.info('IPC: validate-files', { count: paths ? paths.length : 0 });
     return fileValidator.validate(paths, existingPaths || []);
   });
 
@@ -78,13 +140,15 @@ function registerIpcHandlers(mainWindow, deps = {}) {
    * Returns an array of absolute file paths (excludes subdirectories).
    */
   ipcMain.handle('extract-folder-files', async (_event, folderPath) => {
+    log.info('IPC: extract-folder-files', folderPath);
     try {
       const entries = await fs.promises.readdir(folderPath, { withFileTypes: true });
       const filePaths = entries
         .filter((entry) => entry.isFile())
         .map((entry) => path.join(folderPath, entry.name));
       return filePaths;
-    } catch {
+    } catch (err) {
+      log.error('extract-folder-files failed:', err.message);
       return [];
     }
   });
@@ -96,23 +160,43 @@ function registerIpcHandlers(mainWindow, deps = {}) {
    * Sends progress updates and completion event via mainWindow.webContents.
    */
   ipcMain.handle('start-conversion', async (_event, files, outputDir) => {
+    log.info('IPC: start-conversion', { fileCount: files ? files.length : 0, outputDir });
+
+    // Lazy initialization of PythonBridge
+    const ready = await ensurePythonBridgeReady();
+    if (!ready) {
+      const error = new Error(
+        'Python environment is not available. Please check the application installation.'
+      );
+      error.code = 'python_not_found';
+      log.error('start-conversion aborted: PythonBridge not ready');
+      if (_mainWindowRef && !_mainWindowRef.isDestroyed()) {
+        _mainWindowRef.webContents.send('conversion-error', {
+          message: error.message,
+          code: error.code,
+        });
+      }
+      throw error;
+    }
+
     const onProgress = (progressData) => {
-      if (mainWindow && !mainWindow.isDestroyed()) {
-        mainWindow.webContents.send('progress-update', progressData);
+      if (_mainWindowRef && !_mainWindowRef.isDestroyed()) {
+        _mainWindowRef.webContents.send('progress-update', progressData);
       }
     };
 
     try {
       const result = await batchProcessor.process(files, outputDir, onProgress);
 
-      if (mainWindow && !mainWindow.isDestroyed()) {
-        mainWindow.webContents.send('conversion-complete', result);
+      if (_mainWindowRef && !_mainWindowRef.isDestroyed()) {
+        _mainWindowRef.webContents.send('conversion-complete', result);
       }
 
       return result;
     } catch (error) {
-      if (mainWindow && !mainWindow.isDestroyed()) {
-        mainWindow.webContents.send('conversion-error', {
+      log.error('start-conversion error:', error.message);
+      if (_mainWindowRef && !_mainWindowRef.isDestroyed()) {
+        _mainWindowRef.webContents.send('conversion-error', {
           message: error.message,
           code: error.code,
         });
@@ -125,6 +209,7 @@ function registerIpcHandlers(mainWindow, deps = {}) {
    * Cancels the current batch conversion.
    */
   ipcMain.handle('cancel-conversion', () => {
+    log.info('IPC: cancel-conversion');
     batchProcessor.cancel();
   });
 
@@ -135,7 +220,8 @@ function registerIpcHandlers(mainWindow, deps = {}) {
    * Returns the selected directory path or null if cancelled.
    */
   ipcMain.handle('select-output-dir', async () => {
-    const result = await dialog.showOpenDialog(mainWindow, {
+    log.info('IPC: select-output-dir');
+    const result = await dialog.showOpenDialog(_mainWindowRef, {
       properties: ['openDirectory', 'createDirectory'],
     });
 
@@ -178,6 +264,15 @@ function registerIpcHandlers(mainWindow, deps = {}) {
   ipcMain.handle('copy-to-clipboard', (_event, text) => {
     clipboard.writeText(text);
   });
+
+  // ─── Logging ──────────────────────────────────────────────────────────
+
+  /**
+   * Returns the log file path so the renderer can display it to the user.
+   */
+  ipcMain.handle('get-log-path', () => {
+    return log.getLogPath();
+  });
 }
 
-module.exports = { registerIpcHandlers };
+module.exports = { registerIpcHandlers, updateMainWindowRef, isRegistered, resetHandlersRegistered };

@@ -1,6 +1,15 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { BatchProcessor } from '../../src/main/batch-processor.js';
 
+vi.mock('../../src/main/logger', () => ({
+  log: {
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+    getLogPath: vi.fn().mockReturnValue('/tmp/markitdown-gui.log'),
+  },
+}));
+
 /**
  * Creates a mock PythonBridge instance.
  * @param {Object} [overrides] - Methods to override

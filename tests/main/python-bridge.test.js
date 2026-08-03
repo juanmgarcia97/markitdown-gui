@@ -5,6 +5,15 @@ import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
 import { ERROR_CODES } from '../../src/shared/constants.js';
 
+vi.mock('../../src/main/logger', () => ({
+  log: {
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+    getLogPath: vi.fn().mockReturnValue('/tmp/markitdown-gui.log'),
+  },
+}));
+
 // Helper: path to a mock Python script that simulates the worker protocol
 const MOCK_WORKER_PATH = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),

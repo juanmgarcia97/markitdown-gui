@@ -208,8 +208,7 @@ export function initUIController() {
     }
 
     try {
-      const filePaths = files.map(f => f.path);
-      await window.markitdownAPI.startConversion(filePaths, currentOutputDir);
+      await window.markitdownAPI.startConversion(files, currentOutputDir);
     } catch (err) {
       showToast(`Error al iniciar la conversión: ${err.message || err}`, 'error', true);
       isConverting = false;

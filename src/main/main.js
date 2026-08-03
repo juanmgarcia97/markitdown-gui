@@ -1,6 +1,7 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, shell } = require('electron');
 const path = require('path');
-const { registerIpcHandlers } = require('./ipc-handlers');
+const { registerIpcHandlers, updateMainWindowRef } = require('./ipc-handlers');
+const { log } = require('./logger');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -58,6 +59,14 @@ const createApplicationMenu = () => {
     {
       label: 'Archivo',
       submenu: [
+        {
+          label: 'Abrir logs',
+          click: () => {
+            const logPath = log.getLogPath();
+            shell.showItemInFolder(logPath);
+          },
+        },
+        { type: 'separator' },
         isMac ? { role: 'close', label: 'Cerrar ventana' } : { role: 'quit', label: 'Salir' },
       ],
     },
@@ -104,8 +113,10 @@ const createApplicationMenu = () => {
   Menu.setApplicationMenu(menu);
 };
 
+let mainWindow = null;
+
 const createWindow = () => {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1024,
     height: 768,
     webPreferences: {
@@ -117,13 +128,16 @@ const createWindow = () => {
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  // Register all IPC handlers
-  registerIpcHandlers(mainWindow);
+  // Update the window reference so IPC handlers use the current window
+  updateMainWindowRef(mainWindow);
 };
 
 app.whenReady().then(() => {
   createApplicationMenu();
   createWindow();
+
+  // Register IPC handlers ONCE at app startup
+  registerIpcHandlers(mainWindow);
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {

@@ -1,6 +1,7 @@
 'use strict';
 
 const crypto = require('crypto');
+const { log } = require('./logger');
 
 /**
  * Orquesta la conversión secuencial de múltiples archivos con soporte
@@ -36,6 +37,8 @@ class BatchProcessor {
     let failed = 0;
     let cancelled = 0;
 
+    log.info(`Batch started: ${totalFiles} file(s), outputDir: ${outputDir || '(source directory)'}`);
+
     for (let i = 0; i < totalFiles; i++) {
       // Check cancellation before processing the next file
       if (this._cancelled) {
@@ -65,6 +68,7 @@ class BatchProcessor {
 
       try {
         const requestId = crypto.randomUUID();
+        log.info(`Converting [${i + 1}/${totalFiles}]: ${file.name}`);
         const response = await this._pythonBridge.convert(file.path, requestId);
 
         if (response.success) {
@@ -88,6 +92,7 @@ class BatchProcessor {
           failed++;
         }
       } catch (error) {
+        log.error(`Conversion error for ${file.name}: ${error.message}`);
         results.push({
           id: crypto.randomUUID(),
           success: false,
@@ -109,6 +114,8 @@ class BatchProcessor {
 
     const totalTimeMs = Date.now() - startTime;
     this._processing = false;
+
+    log.info(`Batch complete: ${successful} succeeded, ${failed} failed, ${cancelled} cancelled (${totalTimeMs}ms)`);
 
     return {
       successful,
