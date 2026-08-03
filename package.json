@@ -39,11 +39,12 @@
     "@vitest/coverage-v8": "^4.1.10",
     "copy-webpack-plugin": "^14.0.0",
     "css-loader": "^7.1.2",
-    "electron": "^31.3.1",
+    "electron": "^33.4.11",
     "fast-check": "^4.9.0",
     "jsdom": "^29.1.1",
     "node-loader": "^2.0.0",
     "style-loader": "^4.0.0",
+    "tar": "^7.5.22",
     "vitest": "^4.1.10"
   }
 }

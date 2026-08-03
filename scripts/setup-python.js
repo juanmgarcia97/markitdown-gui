@@ -140,12 +140,12 @@ function moveDir(src, dest) {
 
 /**
  * Extracts a tar.gz archive to the target directory.
+ * Uses Node.js tar package on Windows (to avoid colon-in-path issues),
+ * and native tar command on Unix systems (faster for large archives).
  * @param {string} archivePath - Path to the .tar.gz file
  * @param {string} destDir - Destination directory
  */
 function extractArchive(archivePath, destDir) {
-  // python-build-standalone archives contain a top-level "python/" directory
-  // We extract to a temp location and then move contents to python-env/
   const tempExtractDir = path.join(PROJECT_ROOT, '_python-extract-tmp');
 
   if (fs.existsSync(tempExtractDir)) {
@@ -156,8 +156,14 @@ function extractArchive(archivePath, destDir) {
   console.log('  Extracting archive...');
 
   if (process.platform === 'win32') {
-    // On Windows, use --force-local to prevent C: being interpreted as remote host
-    execSync(`tar -xzf "${archivePath}" -C "${tempExtractDir}" --force-local`, { stdio: 'inherit' });
+    // On Windows, use the Node.js tar package to avoid C: being interpreted
+    // as a remote host by MSYS2/Git tar
+    const tar = require('tar');
+    tar.extract({
+      file: archivePath,
+      cwd: tempExtractDir,
+      sync: true,
+    });
   } else {
     execSync(`tar -xzf "${archivePath}" -C "${tempExtractDir}"`, { stdio: 'inherit' });
   }
@@ -166,10 +172,8 @@ function extractArchive(archivePath, destDir) {
   const extractedPythonDir = path.join(tempExtractDir, 'python');
 
   if (fs.existsSync(extractedPythonDir)) {
-    // Use cross-platform move
     moveDir(extractedPythonDir, destDir);
   } else {
-    // Fallback: check if there's a single directory inside
     const entries = fs.readdirSync(tempExtractDir);
     if (entries.length === 1) {
       const singleDir = path.join(tempExtractDir, entries[0]);
@@ -177,13 +181,11 @@ function extractArchive(archivePath, destDir) {
         moveDir(singleDir, destDir);
       }
     } else {
-      // Move the temp dir itself
       moveDir(tempExtractDir, destDir);
-      return; // Skip cleanup since we moved the whole dir
+      return;
     }
   }
 
-  // Cleanup temp directory
   if (fs.existsSync(tempExtractDir)) {
     rmSync(tempExtractDir, { recursive: true, force: true });
   }
