@@ -170,14 +170,26 @@ function getPythonExecutable() {
 
 /**
  * Installs markitdown into the embedded Python environment.
+ * Uses a two-step approach:
+ * 1. Try markitdown[all] with --only-binary :all: (prebuilt wheels only, no source compilation)
+ * 2. Fall back to core extras (pdf,docx,pptx,xlsx) if that fails (e.g., cryptography has no wheel)
  */
 function installMarkitdown() {
   const pythonExe = getPythonExecutable();
 
-  console.log('  Installing markitdown...');
+  console.log('  Upgrading pip...');
   execSync(`"${pythonExe}" -m pip install --upgrade pip`, { stdio: 'inherit' });
-  execSync(`"${pythonExe}" -m pip install 'markitdown[all]'`, { stdio: 'inherit' });
-  console.log('  markitdown installed successfully.');
+
+  console.log('  Installing markitdown with all extras (prebuilt wheels only)...');
+  try {
+    execSync(`"${pythonExe}" -m pip install --only-binary :all: 'markitdown[all]'`, { stdio: 'inherit' });
+    console.log('  markitdown[all] installed successfully.');
+  } catch (err) {
+    console.warn('  markitdown[all] failed (likely missing binary wheel for cryptography).');
+    console.log('  Retrying with core extras only (pdf, docx, pptx, xlsx)...');
+    execSync(`"${pythonExe}" -m pip install 'markitdown[pdf,docx,pptx,xlsx]'`, { stdio: 'inherit' });
+    console.log('  markitdown with core extras installed successfully.');
+  }
 }
 
 /**
