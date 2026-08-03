@@ -116,6 +116,29 @@ function downloadFile(url, destPath) {
 }
 
 /**
+ * Moves a directory cross-platform, handling cross-device scenarios.
+ * @param {string} src - Source directory path
+ * @param {string} dest - Destination directory path
+ */
+function moveDir(src, dest) {
+  try {
+    fs.renameSync(src, dest);
+  } catch (err) {
+    // Cross-device move: copy then delete
+    if (err.code === 'EXDEV') {
+      if (process.platform === 'win32') {
+        execSync(`xcopy "${src}" "${dest}" /E /I /H /Y`, { stdio: 'inherit' });
+      } else {
+        execSync(`cp -a "${src}" "${dest}"`, { stdio: 'inherit' });
+      }
+      rmSync(src, { recursive: true, force: true });
+    } else {
+      throw err;
+    }
+  }
+}
+
+/**
  * Extracts a tar.gz archive to the target directory.
  * @param {string} archivePath - Path to the .tar.gz file
  * @param {string} destDir - Destination directory
@@ -131,24 +154,33 @@ function extractArchive(archivePath, destDir) {
   mkdirSync(tempExtractDir, { recursive: true });
 
   console.log('  Extracting archive...');
-  execSync(`tar -xzf "${archivePath}" -C "${tempExtractDir}"`, { stdio: 'inherit' });
+
+  if (process.platform === 'win32') {
+    // On Windows, use --force-local to prevent C: being interpreted as remote host
+    execSync(`tar -xzf "${archivePath}" -C "${tempExtractDir}" --force-local`, { stdio: 'inherit' });
+  } else {
+    execSync(`tar -xzf "${archivePath}" -C "${tempExtractDir}"`, { stdio: 'inherit' });
+  }
 
   // The archive extracts to a "python/" subdirectory
   const extractedPythonDir = path.join(tempExtractDir, 'python');
 
-  if (!fs.existsSync(extractedPythonDir)) {
-    // Fallback: maybe it extracts directly
+  if (fs.existsSync(extractedPythonDir)) {
+    // Use cross-platform move
+    moveDir(extractedPythonDir, destDir);
+  } else {
+    // Fallback: check if there's a single directory inside
     const entries = fs.readdirSync(tempExtractDir);
     if (entries.length === 1) {
       const singleDir = path.join(tempExtractDir, entries[0]);
       if (fs.statSync(singleDir).isDirectory()) {
-        execSync(`mv "${singleDir}" "${destDir}"`, { stdio: 'inherit' });
+        moveDir(singleDir, destDir);
       }
     } else {
-      execSync(`mv "${tempExtractDir}" "${destDir}"`, { stdio: 'inherit' });
+      // Move the temp dir itself
+      moveDir(tempExtractDir, destDir);
+      return; // Skip cleanup since we moved the whole dir
     }
-  } else {
-    execSync(`mv "${extractedPythonDir}" "${destDir}"`, { stdio: 'inherit' });
   }
 
   // Cleanup temp directory
