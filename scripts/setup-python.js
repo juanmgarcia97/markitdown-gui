@@ -210,18 +210,20 @@ function getPythonExecutable() {
  */
 function installMarkitdown() {
   const pythonExe = getPythonExecutable();
+  // On Windows, use double quotes for pip package specifiers; on Unix use single quotes
+  const q = process.platform === 'win32' ? '"' : "'";
 
   console.log('  Upgrading pip...');
   execSync(`"${pythonExe}" -m pip install --upgrade pip`, { stdio: 'inherit' });
 
   console.log('  Installing markitdown with all extras (prebuilt wheels only)...');
   try {
-    execSync(`"${pythonExe}" -m pip install --only-binary :all: 'markitdown[all]'`, { stdio: 'inherit' });
+    execSync(`"${pythonExe}" -m pip install --only-binary :all: ${q}markitdown[all]${q}`, { stdio: 'inherit' });
     console.log('  markitdown[all] installed successfully.');
   } catch (err) {
     console.warn('  markitdown[all] failed (likely missing binary wheel for cryptography).');
     console.log('  Retrying with core extras only (pdf, docx, pptx, xlsx)...');
-    execSync(`"${pythonExe}" -m pip install 'markitdown[pdf,docx,pptx,xlsx]'`, { stdio: 'inherit' });
+    execSync(`"${pythonExe}" -m pip install ${q}markitdown[pdf,docx,pptx,xlsx]${q}`, { stdio: 'inherit' });
     console.log('  markitdown with core extras installed successfully.');
   }
 }
